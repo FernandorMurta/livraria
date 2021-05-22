@@ -56,7 +56,7 @@ public class BookServiceImpl implements BookService {
         entity.setName(book.getName());
         entity.setAuthor(book.getAuthor());
         entity.setPublishCompany(book.getPublishCompany());
-        entity.setForSale(book.isForSale());
+        entity.setForSale(book.getForSale());
         entity.setQuantity(book.getQuantity());
         entity.setPrice(book.getPrice());
         entity.setCategory(book.getCategory());

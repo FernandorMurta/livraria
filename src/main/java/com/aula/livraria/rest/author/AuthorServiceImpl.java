@@ -1,6 +1,8 @@
 package com.aula.livraria.rest.author;
 
+import com.aula.livraria.exceptions.AuthorNotFoundException;
 import com.aula.livraria.model.author.Author;
+import com.aula.livraria.model.author.AuthorDTO;
 import com.aula.livraria.repository.author.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +29,8 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     @Override
-    public Author findById(Long id) {
-        return null;
+    public AuthorDTO findAuthorById(Long id) throws AuthorNotFoundException {
+        return AuthorDTO.fromEntity(this.authorRepository.findById(id).orElseThrow(AuthorNotFoundException::new));
     }
 
     @Override

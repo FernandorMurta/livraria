@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Fernando Murta
@@ -36,6 +37,25 @@ public class AuthorDTO {
         this.id = id;
         this.name = name;
         this.gender = gender;
+    }
+
+    public static AuthorDTO fromEntity(Author author) {
+        AuthorDTO authorDTO = new AuthorDTO();
+        authorDTO.setId(author.getId());
+        authorDTO.setName(author.getName());
+        authorDTO.setGender(author.getGender());
+        authorDTO.setBooks(author.getBooks().stream().map(BookDTO::fromEntityWithoutAuthor).collect(Collectors.toList()));
+
+        return authorDTO;
+    }
+
+    public static AuthorDTO fromEntityWithoutBooks(Author author) {
+        AuthorDTO authorDTO = new AuthorDTO();
+        authorDTO.setId(author.getId());
+        authorDTO.setName(author.getName());
+        authorDTO.setGender(author.getGender());
+
+        return authorDTO;
     }
 
     public static Author toEntity(AuthorDTO authorDTO) {

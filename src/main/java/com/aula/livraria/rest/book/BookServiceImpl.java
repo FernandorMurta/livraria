@@ -38,7 +38,7 @@ public class BookServiceImpl implements BookService {
         Book entity = BookDTO.toEntity(book);
         entity = this.bookRepository.save(entity);
 
-        return BookDTO.fromEntity(entity);
+        return BookDTO.fromEntityWithoutAuthor(entity);
     }
 
     @Override

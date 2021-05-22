@@ -1,9 +1,9 @@
 package com.aula.livraria.model.book;
 
-import com.aula.livraria.model.author.Author;
 import com.aula.livraria.model.author.AuthorDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +21,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class BookDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,37 +44,41 @@ public class BookDTO implements Serializable {
 
 
     public static Book toEntity(BookDTO bookDTO) {
-        Book book = new Book();
-
-        book.setId(bookDTO.getId());
-        book.setName(bookDTO.getName());
-        book.setCategory(bookDTO.getCategory());
-        book.setQuantity(bookDTO.getQuantity());
-        book.setPrice(bookDTO.getPrice());
-        book.setPublishCompany(bookDTO.getPublishCompany());
-
-        book.setAuthor(AuthorDTO.toEntity(bookDTO.getAuthor()));
-
-        return book;
+        return Book.builder()
+                .id(bookDTO.getId())
+                .name(bookDTO.getName())
+                .category(bookDTO.getCategory())
+                .quantity(bookDTO.getQuantity())
+                .price(bookDTO.getPrice())
+                .publishCompany(bookDTO.getPublishCompany())
+                .forSale(bookDTO.getForSale())
+                .author(AuthorDTO.toEntity(bookDTO.getAuthor()))
+                .build();
     }
 
     public static BookDTO fromEntity(Book book) {
-        BookDTO bookDTO = new BookDTO();
+        return BookDTO.builder()
+                .id(book.getId())
+                .name(book.getName())
+                .category(book.getCategory())
+                .quantity(book.getQuantity())
+                .price(book.getPrice())
+                .publishCompany(book.getPublishCompany())
+                .forSale(book.getForSale())
+                .author(AuthorDTO.fromEntityWithoutBooks(book.getAuthor()))
+                .build();
+    }
 
-        bookDTO.setId(book.getId());
-        bookDTO.setName(book.getName());
-        bookDTO.setCategory(book.getCategory());
-        bookDTO.setPrice(book.getPrice());
-        bookDTO.setForSale(book.getForSale());
-        bookDTO.setQuantity(book.getQuantity());
-        bookDTO.setPublishCompany(book.getPublishCompany());
-
-        Author author = book.getAuthor();
-        AuthorDTO authorDTO = new AuthorDTO(author.getId(), author.getName(), author.getGender());
-
-        bookDTO.setAuthor(authorDTO);
-
-        return bookDTO;
+    public static BookDTO fromEntityWithoutAuthor(Book book) {
+        return BookDTO.builder()
+                .id(book.getId())
+                .name(book.getName())
+                .category(book.getCategory())
+                .quantity(book.getQuantity())
+                .price(book.getPrice())
+                .publishCompany(book.getPublishCompany())
+                .forSale(book.getForSale())
+                .build();
     }
 
 }

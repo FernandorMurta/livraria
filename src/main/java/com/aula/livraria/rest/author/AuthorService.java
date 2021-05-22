@@ -1,6 +1,8 @@
 package com.aula.livraria.rest.author;
 
+import com.aula.livraria.exceptions.AuthorNotFoundException;
 import com.aula.livraria.model.author.Author;
+import com.aula.livraria.model.author.AuthorDTO;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public interface AuthorService {
 
-    Author findById(Long id);
+    AuthorDTO findAuthorById(Long id) throws AuthorNotFoundException;
 
     List<Author> findAll();
 

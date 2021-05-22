@@ -10,6 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author Fernando Murta
+ * @version 0.0.1
+ * @since 0.0.1
+ * <p>
+ * Class who implements the contract (interface) for the Book Entity where all the Business Logic is built.
+ * All Integration need with the Data Layer or other system (by REST API or other method) for the book entity will be built in this class.
+ */
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -30,7 +38,7 @@ public class BookServiceImpl implements BookService {
         Book entity = BookDTO.toEntity(book);
         entity = this.bookRepository.save(entity);
 
-        return BookDTO.fromEntity(entity);
+        return BookDTO.fromEntityWithoutAuthor(entity);
     }
 
     @Override
@@ -56,7 +64,7 @@ public class BookServiceImpl implements BookService {
         entity.setName(book.getName());
         entity.setAuthor(book.getAuthor());
         entity.setPublishCompany(book.getPublishCompany());
-        entity.setForSale(book.isForSale());
+        entity.setForSale(book.getForSale());
         entity.setQuantity(book.getQuantity());
         entity.setPrice(book.getPrice());
         entity.setCategory(book.getCategory());

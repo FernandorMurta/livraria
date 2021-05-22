@@ -1,12 +1,27 @@
 package com.aula.livraria.model.book;
 
-import com.aula.livraria.model.author.Author;
 import com.aula.livraria.model.author.AuthorDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * @author Fernando Murta
+ * @version 0.0.1
+ * @since 0.0.1
+ * <p>
+ * Object created to represent the Entity Book in the transition of data from the Data Layer to the Controller Layer
+ * With this class we can handle better with witch data we want to share and can manipulate the data without impact the real Entity
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BookDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,104 +42,43 @@ public class BookDTO implements Serializable {
 
     private Boolean forSale;
 
-    public BookDTO() {
-    }
 
     public static Book toEntity(BookDTO bookDTO) {
-        Book book = new Book();
-
-        book.setId(bookDTO.getId());
-        book.setName(bookDTO.getName());
-        book.setCategory(bookDTO.getCategory());
-        book.setQuantity(bookDTO.getQuantity());
-        book.setPrice(bookDTO.getPrice());
-        book.setPublishCompany(bookDTO.getPublishCompany());
-
-        book.setAuthor(AuthorDTO.toEntity(bookDTO.getAuthor()));
-
-        return book;
+        return Book.builder()
+                .id(bookDTO.getId())
+                .name(bookDTO.getName())
+                .category(bookDTO.getCategory())
+                .quantity(bookDTO.getQuantity())
+                .price(bookDTO.getPrice())
+                .publishCompany(bookDTO.getPublishCompany())
+                .forSale(bookDTO.getForSale())
+                .author(AuthorDTO.toEntity(bookDTO.getAuthor()))
+                .build();
     }
 
-    public static BookDTO fromEntity(Book book){
-        BookDTO bookDTO = new BookDTO();
-
-        bookDTO.setId(book.getId());
-        bookDTO.setName(book.getName());
-        bookDTO.setCategory(book.getCategory());
-        bookDTO.setPrice(book.getPrice());
-        bookDTO.setForSale(book.isForSale());
-        bookDTO.setQuantity(book.getQuantity());
-        bookDTO.setPublishCompany(book.getPublishCompany());
-
-        Author author = book.getAuthor();
-        AuthorDTO authorDTO = new AuthorDTO(author.getId(), author.getName(), author.getGender());
-
-        bookDTO.setAuthor(authorDTO);
-
-        return bookDTO;
+    public static BookDTO fromEntity(Book book) {
+        return BookDTO.builder()
+                .id(book.getId())
+                .name(book.getName())
+                .category(book.getCategory())
+                .quantity(book.getQuantity())
+                .price(book.getPrice())
+                .publishCompany(book.getPublishCompany())
+                .forSale(book.getForSale())
+                .author(AuthorDTO.fromEntityWithoutBooks(book.getAuthor()))
+                .build();
     }
 
-    public Long getId() {
-        return id;
+    public static BookDTO fromEntityWithoutAuthor(Book book) {
+        return BookDTO.builder()
+                .id(book.getId())
+                .name(book.getName())
+                .category(book.getCategory())
+                .quantity(book.getQuantity())
+                .price(book.getPrice())
+                .publishCompany(book.getPublishCompany())
+                .forSale(book.getForSale())
+                .build();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getPublishCompany() {
-        return publishCompany;
-    }
-
-    public void setPublishCompany(String publishCompany) {
-        this.publishCompany = publishCompany;
-    }
-
-    public AuthorDTO getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(AuthorDTO author) {
-        this.author = author;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Boolean getForSale() {
-        return forSale;
-    }
-
-    public void setForSale(Boolean forSale) {
-        this.forSale = forSale;
-    }
 }

@@ -51,7 +51,7 @@ public class BookDTO implements Serializable {
         return book;
     }
 
-    public static BookDTO fromEntity(Book book){
+    public static BookDTO fromEntity(Book book) {
         BookDTO bookDTO = new BookDTO();
 
         bookDTO.setId(book.getId());

@@ -4,12 +4,12 @@ import com.aula.livraria.exceptions.BookNotFoundException;
 import com.aula.livraria.exceptions.MalformedBodyException;
 import com.aula.livraria.model.book.Book;
 import com.aula.livraria.model.book.BookDTO;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface BookService {
 
-    List<Book> getAll();
+    Page<BookDTO> findByParams(String name, String category, Pageable pageable);
 
     BookDTO create(BookDTO book);
 

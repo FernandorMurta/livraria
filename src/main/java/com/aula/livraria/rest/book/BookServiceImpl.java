@@ -6,9 +6,10 @@ import com.aula.livraria.model.book.Book;
 import com.aula.livraria.model.book.BookDTO;
 import com.aula.livraria.repository.book.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -21,8 +22,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getAll() {
-        return this.bookRepository.findAll();
+    public Page<BookDTO> findByParams(String name, String category, Pageable pageable) {
+        return this.bookRepository.findAllByNameContainsIgnoreCaseAndCategoryContainsIgnoreCase(name, category, pageable);
     }
 
     @Override

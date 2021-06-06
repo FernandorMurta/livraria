@@ -35,6 +35,25 @@ public class BookDTO implements Serializable {
 
     private Boolean forSale;
 
+    public BookDTO(Book book) {
+        this.setId(book.getId());
+        this.setName(book.getName());
+        this.setCategory(book.getCategory());
+        this.setPrice(book.getPrice());
+        this.setForSale(book.getForSale());
+        this.setQuantity(book.getQuantity());
+        this.setPublishCompany(book.getPublishCompany());
+
+        Author author = book.getAuthor();
+
+        AuthorDTO authorDTO = AuthorDTO.builder()
+                .id(author.getId())
+                .name(author.getName())
+                .gender(author.getGender())
+                .build();
+
+        this.setAuthor(authorDTO);
+    }
 
     public static Book toEntity(BookDTO bookDTO) {
         Book book = new Book();

@@ -1,9 +1,6 @@
 package com.aula.livraria.model.enums;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 public enum Gender {

@@ -7,9 +7,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.OneToMany;
+import javax.persistence.FetchType;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Data
@@ -26,7 +30,7 @@ public class Author {
 
     private Gender gender;
 
-    @OneToMany
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Book> books;
 
 }

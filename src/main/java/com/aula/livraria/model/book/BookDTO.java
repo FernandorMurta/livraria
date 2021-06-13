@@ -70,28 +70,18 @@ public class BookDTO implements Serializable {
         return book;
     }
 
-    public static BookDTO fromEntity(Book book) {
-        BookDTO bookDTO = new BookDTO();
-
-        bookDTO.setId(book.getId());
-        bookDTO.setName(book.getName());
-        bookDTO.setCategory(book.getCategory());
-        bookDTO.setPrice(book.getPrice());
-        bookDTO.setForSale(book.getForSale());
-        bookDTO.setQuantity(book.getQuantity());
-        bookDTO.setPublishCompany(book.getPublishCompany());
-
-        Author author = book.getAuthor();
-
-        AuthorDTO authorDTO = AuthorDTO.builder()
-                .id(author.getId())
-                .name(author.getName())
-                .gender(author.getGender())
+    public static BookDTO fromEntity(Book book, Boolean withAuthor) {
+        return BookDTO.builder()
+                .id(book.getId())
+                .name(book.getName())
+                .category(book.getCategory())
+                .price(book.getPrice())
+                .forSale(book.getForSale())
+                .quantity(book.getQuantity())
+                .publishCompany(book.getPublishCompany())
+                .author(withAuthor ? AuthorDTO.fromEntity(book.getAuthor(), false) : null)
                 .build();
-
-        bookDTO.setAuthor(authorDTO);
-
-        return bookDTO;
     }
+
 
 }

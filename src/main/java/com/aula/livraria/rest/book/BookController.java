@@ -36,10 +36,10 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<BookDTO>> findByParams(@RequestParam(value = "name", required = false, defaultValue = "") String name,
-                                                   @RequestParam(value = "category", required = false, defaultValue = "") String category,
-                                                   @RequestParam(value = "page", defaultValue = "0") Integer page,
-                                                   @RequestParam(value = "qtd", defaultValue = "10") Integer qtd) {
+    public ResponseEntity<Page<BookDTO>> findByParams(@RequestParam(value = "name", required = false) String name,
+                                                      @RequestParam(value = "category", required = false) String category,
+                                                      @RequestParam(value = "page", defaultValue = "0") Integer page,
+                                                      @RequestParam(value = "qtd", defaultValue = "10") Integer qtd) {
 
         return ResponseEntity.status(HttpStatus.OK).body(this.bookService.findByParams(name, category, PageRequest.of(page, qtd)));
     }

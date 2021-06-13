@@ -9,7 +9,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
@@ -26,6 +28,23 @@ public class AuthorDTO {
 
     private List<BookDTO> books;
 
+
+    public AuthorDTO(Author author) {
+        this.setId(author.getId());
+        this.setName(author.getName());
+        this.setGender(author.getGender());
+
+        if (author.getBooks() != null) {
+            this.setBooks(
+                    author.getBooks()
+                            .stream()
+                            .map(book -> BookDTO.fromEntity(book, false))
+                            .collect(Collectors.toList()));
+        } else {
+            this.setBooks(new ArrayList<>());
+        }
+    }
+
     public static Author toEntity(AuthorDTO authorDTO) {
         Author author = new Author();
 
@@ -34,6 +53,20 @@ public class AuthorDTO {
         author.setGender(authorDTO.getGender());
 
         return author;
+    }
+
+    public static AuthorDTO fromEntity(Author author, Boolean withBooks) {
+        return AuthorDTO.builder()
+                .name(author.getName())
+                .gender(author.getGender())
+                .id(author.getId())
+                .books(withBooks ?
+                        author.getBooks()
+                                .stream()
+                                .map(entity -> BookDTO.fromEntity(entity, false))
+                                .collect(Collectors.toList())
+                        : null)
+                .build();
     }
 
 }

@@ -8,6 +8,13 @@ import com.aula.livraria.model.book.BookDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+/**
+ * @author Fernando Murta
+ * @version 0.0.1
+ * @since 0.0.1
+ * <p>
+ * Interface representing the contract needed to the Business Logic for the Entity book
+ */
 public interface BookService {
 
     Page<BookDTO> findByParams(String name, String category, Pageable pageable);

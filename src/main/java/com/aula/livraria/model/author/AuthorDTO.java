@@ -28,7 +28,6 @@ public class AuthorDTO {
 
     private List<BookDTO> books;
 
-
     public AuthorDTO(Author author) {
         this.setId(author.getId());
         this.setName(author.getName());
@@ -60,7 +59,7 @@ public class AuthorDTO {
                 .name(author.getName())
                 .gender(author.getGender())
                 .id(author.getId())
-                .books(withBooks ?
+                .books(withBooks && author.getBooks() != null ?
                         author.getBooks()
                                 .stream()
                                 .map(entity -> BookDTO.fromEntity(entity, false))

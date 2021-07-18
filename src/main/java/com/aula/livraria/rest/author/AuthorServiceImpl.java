@@ -1,8 +1,6 @@
 package com.aula.livraria.rest.author;
 
-import com.aula.livraria.exceptions.AuthorContainsBooksException;
-import com.aula.livraria.exceptions.AuthorNotFoundException;
-import com.aula.livraria.exceptions.MalformedBodyException;
+import com.aula.livraria.exceptions.*;
 import com.aula.livraria.model.author.Author;
 import com.aula.livraria.model.author.AuthorDTO;
 import com.aula.livraria.repository.author.AuthorRepository;
@@ -36,7 +34,21 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     @Override
-    public AuthorDTO createAuthor(AuthorDTO authorDTO) {
+    public AuthorDTO createAuthor(AuthorDTO authorDTO) throws ValidationNullableException, ValidationLengthException {
+        //TODO RTI - Reparo Tecnico Improvisado
+        if (authorDTO.getGender() == null) {
+            throw new ValidationNullableException("Gender");
+        }
+
+        if (authorDTO.getName() == null) {
+            throw new ValidationNullableException("Name");
+        }
+
+        if (authorDTO.getName().length() > 20) {
+            throw new ValidationLengthException("Name", "20");
+        }
+
+        //
         Author entity = this.authorRepository.save(AuthorDTO.toEntity(authorDTO));
         return AuthorDTO.fromEntity(entity, false);
     }

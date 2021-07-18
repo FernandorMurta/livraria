@@ -82,6 +82,4 @@ public class BookDTO implements Serializable {
                 .author(withAuthor ? AuthorDTO.fromEntity(book.getAuthor(), false) : null)
                 .build();
     }
-
-
 }

@@ -1,8 +1,6 @@
 package com.aula.livraria.rest.author;
 
-import com.aula.livraria.exceptions.AuthorContainsBooksException;
-import com.aula.livraria.exceptions.AuthorNotFoundException;
-import com.aula.livraria.exceptions.MalformedBodyException;
+import com.aula.livraria.exceptions.*;
 import com.aula.livraria.model.author.AuthorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,7 +43,11 @@ public class AuthorController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthorDTO> saveAuthor(@RequestBody AuthorDTO authorDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.authorService.createAuthor(authorDTO));
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(this.authorService.createAuthor(authorDTO));
+        } catch (ValidationNullableException | ValidationLengthException exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage(), exception);
+        }
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

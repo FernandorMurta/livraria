@@ -1,5 +1,6 @@
 package com.aula.livraria.model.author;
 
+import com.aula.livraria.core.AbstractEntity;
 import com.aula.livraria.model.book.Book;
 import com.aula.livraria.model.enums.Gender;
 import lombok.AllArgsConstructor;
@@ -15,11 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Author {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Author extends AbstractEntity {
 
     @Column(nullable = false, length = 20)
     private String name;

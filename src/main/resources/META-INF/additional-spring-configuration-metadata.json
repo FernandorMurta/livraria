@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "via-cep.domain",
+      "type": "java.lang.String",
+      "description": "Description for via-cep.domain."
+  }
+] }

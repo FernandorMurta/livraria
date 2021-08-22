@@ -48,7 +48,6 @@ public class AuthorServiceImpl implements AuthorService {
             throw new ValidationLengthException("Name", "20");
         }
 
-        //
         Author entity = this.authorRepository.save(AuthorDTO.toEntity(authorDTO));
         return AuthorDTO.fromEntity(entity, false);
     }

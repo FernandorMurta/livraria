@@ -1,8 +1,7 @@
 package com.aula.livraria.rest.address;
 
 
-import com.aula.livraria.model.Address.AddressDTO;
-import com.aula.livraria.rest.author.AuthorService;
+import com.aula.livraria.model.address.AddressDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

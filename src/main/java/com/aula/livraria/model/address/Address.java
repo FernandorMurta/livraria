@@ -1,17 +1,20 @@
-package com.aula.livraria.model.Address;
+package com.aula.livraria.model.address;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.aula.livraria.core.AbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+import javax.persistence.Entity;
+
+
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddressDTO {
+public class Address extends AbstractEntity {
 
     private String cep;
 
@@ -24,4 +27,5 @@ public class AddressDTO {
     private String localidade;
 
     private String uf;
+
 }

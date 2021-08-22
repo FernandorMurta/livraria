@@ -3,6 +3,7 @@ package com.aula.livraria.model.book;
 import com.aula.livraria.model.author.Author;
 import com.aula.livraria.model.author.AuthorDTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

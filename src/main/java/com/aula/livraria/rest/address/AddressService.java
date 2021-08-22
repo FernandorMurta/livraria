@@ -1,6 +1,6 @@
 package com.aula.livraria.rest.address;
 
-import com.aula.livraria.model.Address.AddressDTO;
+import com.aula.livraria.model.address.AddressDTO;
 
 public interface AddressService {
 

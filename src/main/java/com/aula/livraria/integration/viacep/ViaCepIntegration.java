@@ -1,6 +1,6 @@
 package com.aula.livraria.integration.viacep;
 
-import com.aula.livraria.model.Address.AddressDTO;
+import com.aula.livraria.model.address.AddressDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

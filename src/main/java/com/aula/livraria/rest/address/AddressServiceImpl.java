@@ -1,7 +1,7 @@
 package com.aula.livraria.rest.address;
 
 import com.aula.livraria.integration.viacep.ViaCepIntegration;
-import com.aula.livraria.model.Address.AddressDTO;
+import com.aula.livraria.model.address.AddressDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
